@@ -1,0 +1,3533 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("ranking-table");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc"; 
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++; 
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+    <style type="text/css">
+        @font-face {
+            font-family: xwing_ships_font;
+            /*src: url("css/fonts/Harabara.eot");*/
+            src: local(xwing_ships_font), url("css/fonts/xwing-miniatures-ships_2-webfont.woff") format("woff"), url("css/fonts/xwing-miniatures-ships_2-webfont.woff2") format("woff2"), url("css/fonts/xwing-miniatures-ships_2-webfont.ttf") format("ttf");
+        }
+        @font-face {
+            font-family: xwing_symbols_font;
+            src: local(xwing_ships_font), url("css/fonts/xwing-miniatures-webfont.woff") format("woff"), url("css/fonts/xwing-miniatures-webfont.woff2") format("woff2"), url("css/fonts/xwing-miniatures-webfont.ttf") format("ttf");
+        }
+        .faction-column {
+            font-family: xwing_symbols_font, Arial, sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 30px;
+        }
+        .ships-column {
+            font-family: xwing_ships_font, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: normal;
+            font-style: normal;
+            text-align: left;
+        }
+        .player-column{
+            text-align: left;
+        }
+        .pilots-column{
+            text-align: left;
+        } 
+        body {
+            background-color: #3e94ec;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            border-radius: 3px;
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+        }
+
+        th {
+            color: #D5DDE5;
+            background: #1b1e24;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 14px;
+            font-weight: 100;
+            padding: 5px;
+            text-align: left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align: middle;
+        }
+
+            th:first-child {
+                border-top-left-radius: 3px;
+            }
+
+            th:last-child {
+                border-top-right-radius: 3px;
+                border-right: none;
+            }
+
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom: 1px solid #C1C3D1;
+            color: #666B85;
+            font-size: 14px;
+            font-weight: normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+            
+        }
+
+            tr:hover td {
+                background: #4E5066;
+                color: #FFFFFF;
+                border-top: 1px solid #22262e;
+            }
+
+            tr:first-child {
+                border-top: none;
+            }
+
+            tr:last-child {
+                border-bottom: none;
+            }
+
+            tr:nth-child(odd) td {
+                background: #EBEBEB;
+            }
+
+            tr:nth-child(odd):hover td {
+                background: #4E5066;
+            }
+
+            tr:last-child td:first-child {
+                border-bottom-left-radius: 3px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+        td {
+            background: #FFFFFF;
+            padding: 5px;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 100;
+            font-size: 14px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+
+            td:last-child {
+                border-right: 0px;
+            }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spain National 2018</h1>
+    <h3>Faction Distribution</h3>
+    <table>
+        <tr>
+            <th>Faction</th>
+            <th>Total field</th>
+            <th>Stage 2</th>
+            <th>Top 32</th>
+            <th>Top 16</th>
+            <th>Top 8</th>
+            <th>Semi-Final</th>
+            <th>Final</th>
+        </tr>
+        <tr>
+            <td class="faction-column">!</td>
+            <td>39%</td>
+            <td>37%</td>
+            <td>22%</td>
+            <td>18.75%</td>
+            <td>12.5%</td>
+            <td>25%</td>
+            <td>0%</td>
+        </tr>
+        <tr>
+            <td class="faction-column">@</td>
+            <td>38%</td>
+            <td>41%</td>
+            <td>41%</td>
+            <td>50%</td>
+            <td>50%</td>
+            <td>25%</td>
+            <td>50%</td>
+        </tr>
+        <tr>
+            <td class="faction-column">#</td>
+            <td>23%</td>
+            <td>22%</td>
+            <td>37%</td>
+            <td>30.25%</td>
+            <td>37.5%</td>
+            <td>50%</td>
+            <td>50%</td>
+        </tr>
+    </table>
+    <h3> Most Common Pilots</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total Field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Successful</th>
+            <th>Least Successful</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Wedge Antilles</td>
+            <td>Wedge Antilles</td>
+            <td>Whisper</td>
+            <td>Boba Fett</td>
+            <td>Wedge Antilles</td>
+            <td>Wedge Antilles</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Whisper</td>
+            <td>Luke Skywalker</td>
+            <td>Soontir Fel</td>
+            <td>Guri</td>
+            <td>Luke Skywalker</td>
+            <td>Whisper</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Luke Skywalker</td>
+            <td>Thane Kyrell</td>
+            <td>Redline</td>
+            <td>Palob Godalhi</td>
+            <td>Whisper</td>
+            <td>Luke Skywalker</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Soontir Fel</td>
+            <td>AP-5</td>
+            <td>Academy Pilot</td>
+            <td>L3-37</td>
+            <td>Soontir Fel</td>
+            <td>Thane Kyrell</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Thane Kyrell</td>
+            <td>Garven Dreis</td>
+            <td>Deathrain</td>
+            <td>Jakku Gunrunner</td>
+            <td>Redline</td>
+            <td>Soontir Fel</td>
+        </tr>
+    </table>
+    <h3> Most Common Upgrades</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total Field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Successful</th>
+            <th>Least Successful</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Proton Torpedoes</td>
+            <td>S-Foils</td>
+            <td>Juke</td>
+            <td>0-0-0</td>
+            <td>Proton Torpedoes</td>
+            <td>Proton Torpedoes</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>S-Foils</td>
+            <td>Proton Torpedoes</td>
+            <td>Barrage Rockets</td>
+            <td>Marauder</td>
+            <td>S-Foils</td>
+            <td>S-Foils</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Juke</td>
+            <td>Swarm Tactics</td>
+            <td>Proton Torpedoes</td>
+            <td>Han Solo</td>
+            <td>Juke</td>
+            <td>Juke</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Crack Shot</td>
+            <td>R3 Astromech</td>
+            <td>Darth Vader</td>
+            <td>Advanced Sensors</td>
+            <td>Crack Shot</td>
+            <td>Advanced Sensors</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Barrage Rockets</td>
+            <td>Crack Shot</td>
+            <td>Proton Bombs</td>
+            <td>Debris Gambit</td>
+            <td>Swarm Tactics</td>
+            <td>Fire-Control System</td>
+        </tr>
+    </table>
+    <h3>Most Common Ships</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Succesful</th>
+            <th>Least Succesful</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>T-65 X-wing (165)</td>
+            <td>T-65 X-wing</td>
+            <td>TIE/ln Fighter</td>
+            <td>Firespray-class Patrol Craft</td>
+            <td>T-65 X-wing</td>
+            <td>T-65 X-wing</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>TIE/ln Fighter (65)</td>
+            <td>Sheathipede-class Shuttle</td>
+            <td>TIE/ph Phantom</td>
+            <td>StarViper-class Attack Platform</td>
+            <td>TIE/ln Fighter</td>
+            <td>TIE/ln Fighter</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>TIE/ph Phantom(47)</td>
+            <td>BTL-A4 Y-wing</td>
+            <td>TIE/sa Bomber</td>
+            <td>Escape Craft</td>
+            <td>TIE/ca Punisher</td>
+            <td>TIE/ph Phantom</td>
+        </tr>
+    </table>
+    <h3>Most common list archetypes</h3>
+    <span class="ships-column" style="font-size:200%">x x x</span><span> - 11 lists with the same caracteristics</span><br />
+    <span class="ships-column" style="font-size:200%">I l P</span><span> - 8 lists with the same caracteristics</span><br />
+    <span class="ships-column" style="font-size:200%">f v</span><span> - 6 lists with the same caracteristics</span><br />
+    <h3>Averages</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>Total field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+        </tr>
+        <tr>
+            <td># of upgrades per ship</td>
+            <td>2.09</td>
+            <td>2.27</td>
+            <td>1.76</td>
+            <td>2.39</td>
+        </tr>
+        <tr>
+            <td># of ships in list</td>
+            <td>3.54</td>
+            <td>3.58</td>
+            <td>3.65</td>
+            <td>3.29</td>
+        </tr>
+        <tr>
+            <td>avg initiative bid</td>
+            <td>1.14</td>
+            <td>1.22</td>
+            <td>1.52</td>
+            <td>0.35</td>
+        </tr>
+        
+    </table>
+    <h3>Final Ranking</h3>
+    <span>Click column headers to sort</span>
+    <table id="ranking-table" cellspacing=0 border=1>
+        <tr>
+            <th onclick="sortTable(0)">Swiss Rank</th>
+            <th onclick="sortTable(1)">Player Name</th>
+            <th onclick="sortTable(2)">Faction</th>
+            <th onclick="sortTable(3)">Archetype</th>
+            <th onclick="sortTable(4)">Squad</th>
+            <th onclick="sortTable(5)">Squad Points</th>
+            <th onclick="sortTable(6)">Final Rank</th>
+            <th onclick="sortTable(7)">Points</th>
+            <th onclick="sortTable(8)">MOV</th>
+            <th onclick="sortTable(9)">SOS</th>
+            <th onclick="sortTable(10)">Dropped</th>
+            <th onclick="sortTable(11)">List</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Predator<br /><strong>•Captain Kagi:</strong> •Emperor Palpatine, Shield Upgrade<br /><strong>•Whisper:</strong> Juke, Advanced Sensors, •Darth Vader</td>
+            <td>197</td>
+            <td>32</td>
+            <td>6</td>
+            <td>1932</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f M v</td>
+            <td class="pilots-column"><strong>Black Sun Assassin:</strong> Crack Shot<br /><strong>•Boba Fett:</strong> Crack Shot, •0-0-0, •Marauder, Veteran Tail Gunner<br /><strong>•Old Teroch:</strong> Crack Shot</td>
+            <td>197</td>
+            <td>32</td>
+            <td>6</td>
+            <td>1834</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% g x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•AP-5</strong><br /><strong>•Sabine Wren:</strong> Juke<br /><strong>•Luke Skywalker:</strong> Servomotor S-foils (Closed)</td>
+            <td>198</td>
+            <td>4</td>
+            <td>6</td>
+            <td>1653</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">H h W</td>
+            <td class="pilots-column"><strong>•Captain Nym:</strong> Trick Shot, Dorsal Turret, Proton Bombs, Seismic Charges, Ablative Plating, •Havoc, Trajectory Simulator, •Genius<br /><strong>•Palob Godalhi:</strong> Trick Shot, •Qi•ra, •Moldy Crow<br /><strong>•Han Solo:</strong> Trick Shot, •0-0-0, •Tobias Beckett, Rigged Cargo Chute, •Lando•s Millennium Falcon</td>
+            <td>199</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1885</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h M n q</td>
+            <td class="pilots-column"><strong>Jakku Gunrunner:</strong> •0-0-0<br /><strong>•4-LOM:</strong> •IG-88D<br /><strong>•Palob Godalhi:</strong> Debris Gambit, •L3•37, •Moldy Crow<br /><strong>•Old Teroch:</strong> Fearless</td>
+            <td>199</td>
+            <td>16</td>
+            <td>5</td>
+            <td>1780</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N N</td>
+            <td class="pilots-column"><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs<br /><strong>•Soontir Fel:</strong> Outmaneuver, Shield Upgrade</td>
+            <td>193</td>
+            <td>8</td>
+            <td>5</td>
+            <td>1776</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l N P</td>
+            <td class="pilots-column"><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges<br /><strong>•Lieutenant Sai:</strong> •Director Krennic, •ST-321<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader</td>
+            <td>197</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1731</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F F F</td>
+            <td class="pilots-column"><strong>•Seyn Marana:</strong> Crack Shot<br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>•Wampa</strong><br /><strong>•Del Meeko:</strong> Crack Shot<br /><strong>•Night Beast</strong><br /><strong>•Howlrunner:</strong> Crack Shot</td>
+            <td>200</td>
+            <td>16</td>
+            <td>5</td>
+            <td>1689</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l P R</td>
+            <td class="pilots-column"><strong>•Captain Kagi:</strong> •Emperor Palpatine<br /><strong>•Grand Inquisitor:</strong> Fire-Control System, Sense<br /><strong>•Whisper:</strong> Juke, •Darth Vader</td>
+            <td>198</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1658</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l P P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Darth Vader, Shield Upgrade<br /><strong>•Echo:</strong> Juke, •Seventh Sister, Shield Upgrade<br /><strong>•Captain Kagi:</strong> •0-0-0</td>
+            <td>199</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1618</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, Proximity Mines, Shield Upgrade, •Marauder, •Han Solo<br /><strong>•Guri:</strong> •Lone Wolf, Advanced Sensors, Shield Upgrade</td>
+            <td>193</td>
+            <td>16</td>
+            <td>5</td>
+            <td>1598</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f h n</td>
+            <td class="pilots-column"><strong>•4-LOM:</strong> Advanced Sensors<br /><strong>•Palob Godalhi:</strong> Trick Shot, •Moldy Crow<br /><strong>•Boba Fett:</strong> Debris Gambit, •0-0-0, •Marauder, •Han Solo</td>
+            <td>200</td>
+            <td>1</td>
+            <td>5</td>
+            <td>1585</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating, Skilled Bombardier<br /><strong>•Soontir Fel:</strong> Predator</td>
+            <td>197</td>
+            <td>8</td>
+            <td>5</td>
+            <td>1562</td>
+            <td>0.63000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h M s X</td>
+            <td class="pilots-column"><strong>•Genesis Red:</strong> Juke, Tractor Beam<br /><strong>•Outer Rim Pioneer:</strong> Tactical Officer<br /><strong>•Kad Solus:</strong> Outmaneuver, Adv. Proton Torpedoes<br /><strong>•Palob Godalhi:</strong> Debris Gambit, •4-LOM, Proximity Mines, Hull Upgrade, •Moldy Crow</td>
+            <td>200</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1533</td>
+            <td>0.60000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B B N</td>
+            <td class="pilots-column"><strong>•Deathrain:</strong> Trajectory Simulator, Barrage Rockets, Proton Bombs<br /><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets</td>
+            <td>200</td>
+            <td>2</td>
+            <td>5</td>
+            <td>1520</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v X</td>
+            <td class="pilots-column"><strong>•L3-37:</strong> Tactical Officer<br /><strong>•Guri:</strong> Outmaneuver, Fire-Control System, Afterburners<br /><strong>•Boba Fett:</strong> Debris Gambit, •0-0-0, Seismic Charges, •Marauder, •Han Solo</td>
+            <td>198</td>
+            <td>4</td>
+            <td>5</td>
+            <td>1508</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B B N</td>
+            <td class="pilots-column"><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>•Deathrain:</strong> Trajectory Simulator, Barrage Rockets, Bomblet Generator</td>
+            <td>200</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1484</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">q q y z z z z</td>
+            <td class="pilots-column"><strong>Binayre Pirate</strong><br /><strong>Jakku Gunrunner</strong><br /><strong>Jakku Gunrunner:</strong> •Tobias Beckett<br /><strong>•Drea Renthal:</strong> Dorsal Turret<br /><strong>Binayre Pirate</strong><br /><strong>Binayre Pirate</strong><br /><strong>Binayre Pirate</strong></td>
+            <td>198</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1476</td>
+            <td>0.59000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R2 Astromech, Supernatural Reflexes, Servomotor S-foils (Open)<br /><strong>Blue Squadron Scout:</strong> Pivot Wing (Open)</td>
+            <td>193</td>
+            <td>16</td>
+            <td>5</td>
+            <td>1460</td>
+            <td>0.64000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v X</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Outmaneuver, Advanced Sensors, Afterburners<br /><strong>•L3-37:</strong> Tactical Officer<br /><strong>•Boba Fett:</strong> Debris Gambit, •0-0-0, •Marauder, •Han Solo</td>
+            <td>200</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1439</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% % x x</td>
+            <td class="pilots-column"><strong>•Zeb• Orrelios</strong><br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Closed)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•AP-5</strong></td>
+            <td>200</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1427</td>
+            <td>0.69000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v X z</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Marksmanship, Advanced Sensors<br /><strong>Binayre Pirate</strong><br /><strong>•L3-37</strong><br /><strong>•Boba Fett:</strong> •0-0-0</td>
+            <td>200</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1415</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F F F</td>
+            <td class="pilots-column"><strong>•Howlrunner:</strong> Swarm Tactics<br /><strong>•Seyn Marana:</strong> Marksmanship<br /><strong>•Gideon Hask</strong><br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>•Wampa</strong><br /><strong>Academy Pilot</strong></td>
+            <td>198</td>
+            <td>16</td>
+            <td>5</td>
+            <td>1409</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Guri:</strong> •Lone Wolf, Collision Detector, Afterburners, •Virago<br /><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, •Marauder, •Han Solo</td>
+            <td>188</td>
+            <td>8</td>
+            <td>5</td>
+            <td>1345</td>
+            <td>0.63000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f f</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> •IG-88D, Seismic Charges, Inertial Dampeners, •Marauder, •Han Solo<br /><strong>•Emon Azzameen:</strong> •Cikatro Vizago, Proton Bombs, •Cloaking Device, •Andrasta, Proximity Mines</td>
+            <td>195</td>
+            <td>32</td>
+            <td>5</td>
+            <td>1336</td>
+            <td>0.72000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>26</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N N</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Predator<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Proximity Mines, Ablative Plating<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating</td>
+            <td>191</td>
+            <td>8</td>
+            <td>4</td>
+            <td>1747</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">k x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Esege Tuketu:</strong> Perceptive Copilot, Proximity Mines, Advanced SLAM, Hotshot Gunner<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>32</td>
+            <td>4</td>
+            <td>1704</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x z z</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Closed)<br /><strong>•Garven Dreis:</strong> Swarm Tactics, Servomotor S-foils (Closed)<br /><strong>•Biggs Darklighter:</strong> Servomotor S-foils (Closed)<br /><strong>Bandit Squadron Pilot</strong><br /><strong>Bandit Squadron Pilot</strong></td>
+            <td>199</td>
+            <td>32</td>
+            <td>4</td>
+            <td>1642</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% g x x</td>
+            <td class="pilots-column"><strong>•Sabine Wren</strong><br /><strong>•Luke Skywalker:</strong> R2 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Crack Shot, R2 Astromech, Servomotor S-foils (Open)<br /><strong>•AP-5:</strong> •Jyn Erso</td>
+            <td>200</td>
+            <td>16</td>
+            <td>4</td>
+            <td>1636</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">e h x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Predator, R5 Astromech, Servomotor S-foils (Open)<br /><strong>•Kyle Katarn:</strong> Debris Gambit, GNK •Gonk• Droid, •Moldy Crow<br /><strong>•Corran Horn:</strong> Elusive, •Chopper</td>
+            <td>200</td>
+            <td>32</td>
+            <td>4</td>
+            <td>1601</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>31</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">& & A l</td>
+            <td class="pilots-column"><strong>Nu Squadron Pilot:</strong> Proton Torpedoes, Os-1 Arsenal Loadout<br /><strong>•Colonel Jendon:</strong> •Darth Vader<br /><strong>•Ved Foslo:</strong> Crack Shot, Fire-Control System<br /><strong>Nu Squadron Pilot:</strong> Proton Torpedoes, Os-1 Arsenal Loadout</td>
+            <td>199</td>
+            <td>16</td>
+            <td>4</td>
+            <td>1599</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> •Lone Wolf<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader</td>
+            <td>195</td>
+            <td>16</td>
+            <td>4</td>
+            <td>1592</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>33</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, R3 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Dutch• Vander:</strong> Crack Shot, Proton Torpedoes, R3 Astromech<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1584</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>34</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% b x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•AP-5:</strong> Intimidation<br /><strong>•Thane Kyrell:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>Blade Squadron Veteran:</strong> Selfless</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1577</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>35</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N N</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Outmaneuver, Hull Upgrade, Shield Upgrade<br /><strong>•Redline:</strong> Proton Torpedoes, Proton Bombs<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating</td>
+            <td>197</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1550</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x z z</td>
+            <td class="pilots-column"><strong>•Garven Dreis:</strong> Swarm Tactics, Servomotor S-foils (Open)<br /><strong>•Biggs Darklighter:</strong> Servomotor S-foils (Open)<br /><strong>Bandit Squadron Pilot</strong><br /><strong>Bandit Squadron Pilot</strong><br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1547</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>Red Squadron Veteran:</strong> Crack Shot, Servomotor S-foils (Open)<br /><strong>•AP-5:</strong> Intimidation<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1540</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>Academy Pilot</strong><br /><strong>•Howlrunner:</strong> Swarm Tactics<br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>Academy Pilot</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1538</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>39</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f M X</td>
+            <td class="pilots-column"><strong>•L3-37:</strong> Tactical Officer<br /><strong>•Fenn Rau:</strong> Predator<br /><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, Seismic Charges, •Marauder, •Han Solo</td>
+            <td>196</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1533</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>40</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F F F F</td>
+            <td class="pilots-column"><strong>•Howlrunner:</strong> Swarm Tactics<br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong></td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1531</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>41</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% x x x</td>
+            <td class="pilots-column"><strong>•AP-5:</strong> •Jyn Erso<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Hull Upgrade, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Crack Shot, Hull Upgrade, Servomotor S-foils (Open)<br /><strong>•Garven Dreis:</strong> Crack Shot, Hull Upgrade, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1531</td>
+            <td>0.39000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>42</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">g x x z</td>
+            <td class="pilots-column"><strong>Bandit Squadron Pilot:</strong> Proton Rockets<br /><strong>•Sabine Wren:</strong> Crack Shot<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Hull Upgrade, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1524</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>43</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F P</td>
+            <td class="pilots-column"><strong>Obsidian Squadron Pilot</strong><br /><strong>Obsidian Squadron Pilot</strong><br /><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>•Howlrunner:</strong> Crack Shot<br /><strong>•Iden Versio:</strong> Crack Shot</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1507</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>44</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Closed)</td>
+            <td>195</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1501</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>45</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D l N</td>
+            <td class="pilots-column"><strong>•Rexler Brath:</strong> Juke<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs<br /><strong>•Colonel Jendon:</strong> •Director Krennic</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1498</td>
+            <td>0.59000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>46</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f h M n X</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> •0-0-0, •Marauder, •Han Solo<br /><strong>•4-LOM:</strong> Advanced Sensors, •Qi•ra, •Mist Hunter<br /><strong>•Palob Godalhi:</strong> Engine Upgrade, •Moldy Crow<br /><strong>•Fenn Rau:</strong> Fearless<br /><strong>•L3-37:</strong> Tactical Officer</td>
+            <td>299</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1496</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>47</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% g x x</td>
+            <td class="pilots-column"><strong>•AP-5</strong><br /><strong>•Sabine Wren:</strong> Juke, Dorsal Turret<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Proton Torpedoes, Servomotor S-foils (Closed)</td>
+            <td>194</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1492</td>
+            <td>0.59000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>48</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">M v y</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Predator<br /><strong>•Fenn Rau:</strong> Predator<br /><strong>•Kavil:</strong> Ion Cannon Turret, Proton Torpedoes, •Han Solo</td>
+            <td>195</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1484</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>49</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Outmaneuver, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Trick Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>196</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1483</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, •Marauder, •Han Solo<br /><strong>•Guri:</strong> •Lone Wolf, Collision Detector, Afterburners, •Virago</td>
+            <td>188</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1481</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>51</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N N</td>
+            <td class="pilots-column"><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating<br /><strong>•Soontir Fel:</strong> Predator, Shield Upgrade</td>
+            <td>196</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1479</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>52</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">h x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, R3 Astromech, Heightened Perception, Servomotor S-foils (Closed)<br /><strong>•Kyle Katarn:</strong> Trick Shot, •Jyn Erso, •Moldy Crow<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Closed)</td>
+            <td>195</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1470</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>53</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">N P P</td>
+            <td class="pilots-column"><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, •BT-1<br /><strong>•Whisper:</strong> Juke, Advanced Sensors, •Darth Vader<br /><strong>•Echo:</strong> Juke, •0-0-0</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1459</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>54</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F I I l R</td>
+            <td class="pilots-column"><strong>Omicron Group Pilot:</strong> Advanced Sensors, •Admiral Sloane<br /><strong>Academy Pilot</strong><br /><strong>Alpha Squadron Pilot</strong><br /><strong>Alpha Squadron Pilot</strong><br /><strong>Inquisitor:</strong> Sense</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1459</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>55</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">v W X</td>
+            <td class="pilots-column"><strong>•Lando Calrissian</strong><br /><strong>•Guri:</strong> Outmaneuver, Advanced Sensors, Shield Upgrade, •Virago<br /><strong>•Han Solo:</strong> Trick Shot, •0-0-0, Engine Upgrade, •Lando•s Millennium Falcon, •BT-1</td>
+            <td>195</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1454</td>
+            <td>0.49000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>56</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B B B</td>
+            <td class="pilots-column"><strong>•Major Rhymer:</strong> Barrage Rockets<br /><strong>•Deathfire:</strong> Barrage Rockets<br /><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>Gamma Squadron Ace:</strong> Barrage Rockets<br /><strong>•Tomax Bren:</strong> Swarm Tactics, Barrage Rockets</td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1451</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>57</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">M q q W X</td>
+            <td class="pilots-column"><strong>Jakku Gunrunner</strong><br /><strong>•Autopilot Drone</strong><br /><strong>•Han Solo:</strong> Trick Shot, •Qi•ra, •Lando•s Millennium Falcon<br /><strong>•Fenn Rau</strong><br /><strong>Jakku Gunrunner</strong></td>
+            <td>199</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1450</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>58</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">y y y y</td>
+            <td class="pilots-column"><strong>Crymorah Goon:</strong> Ion Cannon Turret, R3 Astromech, Veteran Turret Gunner<br /><strong>Crymorah Goon:</strong> Ion Cannon Turret, R3 Astromech, Veteran Turret Gunner<br /><strong>Crymorah Goon:</strong> Ion Cannon Turret, R3 Astromech, Veteran Turret Gunner<br /><strong>Crymorah Goon:</strong> Ion Cannon Turret, R3 Astromech, Veteran Turret Gunner</td>
+            <td>196</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1444</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>59</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D l N</td>
+            <td class="pilots-column"><strong>•Rexler Brath:</strong> Juke, Fire-Control System<br /><strong>•Colonel Jendon:</strong> Fire-Control System, •Director Krennic<br /><strong>•Redline:</strong> Proton Torpedoes</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1439</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>60</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Outmaneuver, Advanced Sensors, Afterburners<br /><strong>•Boba Fett:</strong> Fearless, •0-0-0, Proton Bombs, Ablative Plating, •Marauder, •Han Solo</td>
+            <td>186</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1432</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>61</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% g x x</td>
+            <td class="pilots-column"><strong>•Ezra Bridger:</strong> Ion Cannon Turret, •Hera Syndulla<br /><strong>•Thane Kyrell:</strong> Trick Shot, Servomotor S-foils (Open)<br /><strong>•AP-5:</strong> Trick Shot<br /><strong>•Wedge Antilles:</strong> Elusive, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1419</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>62</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">h x x z</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Trick Shot, Servomotor S-foils (Open)<br /><strong>•Roark Garnet:</strong> Trick Shot, •Jyn Erso, •Moldy Crow<br /><strong>•Luke Skywalker:</strong> Heightened Perception, Servomotor S-foils (Open)<br /><strong>Bandit Squadron Pilot:</strong> Concussion Missiles</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1404</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>63</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, R4 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1382</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>64</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">F h x x</td>
+            <td class="pilots-column"><strong>•Garven Dreis:</strong> Swarm Tactics, R4 Astromech, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, R3 Astromech, Servomotor S-foils (Closed)<br /><strong>•Captain Rex</strong><br /><strong>•Roark Garnet:</strong> Juke, •Jyn Erso, •Moldy Crow</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1381</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>65</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Darth Vader, Hull Upgrade<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs<br /><strong>•Soontir Fel:</strong> Predator, Stealth Device</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1345</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>66</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I P P</td>
+            <td class="pilots-column"><strong>•Echo:</strong> Juke<br /><strong>•Whisper:</strong> Juke, •Darth Vader, Stealth Device<br /><strong>•Soontir Fel:</strong> Juke, Stealth Device</td>
+            <td>194</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1342</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>67</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A D F</td>
+            <td class="pilots-column"><strong>•Wampa</strong><br /><strong>•Darth Vader:</strong> Fire-Control System<br /><strong>•Rexler Brath:</strong> Juke, Fire-Control System</td>
+            <td>194</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1333</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>68</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Adv. Proton Torpedoes, Instinctive Aim, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Closed)<br /><strong>•Benthic Two Tubes:</strong> Advanced Sensors, Perceptive Copilot, Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1316</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>69</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B l P</td>
+            <td class="pilots-column"><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Captain Kagi:</strong> Advanced Sensors, •Emperor Palpatine, •ST-321</td>
+            <td>198</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1272</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>70</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B I l N</td>
+            <td class="pilots-column"><strong>•Deathfire:</strong> Proton Torpedoes<br /><strong>•Soontir Fel:</strong> Predator<br /><strong>•Colonel Jendon</strong><br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1254</td>
+            <td>0.41000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>71</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F F F</td>
+            <td class="pilots-column"><strong>Academy Pilot</strong><br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>•Gideon Hask:</strong> Crack Shot<br /><strong>•Seyn Marana:</strong> Marksmanship<br /><strong>•Howlrunner:</strong> Crack Shot<br /><strong>•Scourge• Skutu:</strong> Crack Shot</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1250</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>72</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% g x x</td>
+            <td class="pilots-column"><strong>•Sabine Wren</strong><br /><strong>•Wedge Antilles:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•AP-5</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1231</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>73</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">y y y y</td>
+            <td class="pilots-column"><strong>Gold Squadron Veteran:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech<br /><strong>Gray Squadron Bomber:</strong> Proton Torpedoes, R3 Astromech<br /><strong>•Norra Wexley:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech<br /><strong>Gold Squadron Veteran:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1218</td>
+            <td>0.70000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>74</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">H M y</td>
+            <td class="pilots-column"><strong>•Kavil:</strong> Trick Shot, Dorsal Turret, R4 Astromech, Proton Bombs, •Han Solo<br /><strong>•Captain Nym:</strong> Ion Cannon Turret, Proton Bombs, Seismic Charges, •Havoc, Trajectory Simulator, •Genius<br /><strong>•Fenn Rau:</strong> Crack Shot</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1175</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>75</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% b x x</td>
+            <td class="pilots-column"><strong>•AP-5:</strong> Intimidation<br /><strong>•Thane Kyrell:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Outmaneuver, R4 Astromech, Servomotor S-foils (Open)<br /><strong>Blade Squadron Veteran:</strong> Selfless</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1135</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>76</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% @ h x</td>
+            <td class="pilots-column"><strong>•Jan Ors:</strong> Engine Upgrade<br /><strong>•Wullffwarro:</strong> •Saw Gerrera, Hull Upgrade<br /><strong>•AP-5</strong><br /><strong>•Wedge Antilles:</strong> Outmaneuver, Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>4</td>
+            <td>1086</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>77</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I N</td>
+            <td class="pilots-column"><strong>•Darth Vader:</strong> Fire-Control System, Afterburners<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Bomblet Generator<br /><strong>•Soontir Fel:</strong> Juke</td>
+            <td>196</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1459</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>78</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Lieutenant Sai:</strong> •Emperor Palpatine<br /><strong>•Soontir Fel:</strong> •Lone Wolf, Stealth Device</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1447</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>79</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B N</td>
+            <td class="pilots-column"><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating<br /><strong>Gamma Squadron Ace:</strong> Saturation Salvo, Barrage Rockets<br /><strong>Gamma Squadron Ace:</strong> Saturation Salvo, Barrage Rockets<br /><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1419</td>
+            <td>0.49000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>80</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Proton Torpedoes, R2 Astromech, Servomotor S-foils (Closed)<br /><strong>•Fenn Rau</strong><br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R2 Astromech, Instinctive Aim, Servomotor S-foils (Open)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1391</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>81</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x x z</td>
+            <td class="pilots-column"><strong>Tala Squadron Pilot</strong><br /><strong>•Thane Kyrell:</strong> Servomotor S-foils (Open)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>Blue Squadron Scout:</strong> Tactical Officer, Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1391</td>
+            <td>0.39</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>82</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l N P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Proximity Mines, Ablative Plating<br /><strong>•Captain Kagi:</strong> •0-0-0</td>
+            <td>197</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1385</td>
+            <td>0.5</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>83</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a u x x</td>
+            <td class="pilots-column"><strong>Red Squadron Veteran:</strong> Elusive, R2 Astromech, Servomotor S-foils (Closed)<br /><strong>Green Squadron Pilot:</strong> Elusive, Cluster Missiles<br /><strong>•Cassian Andor:</strong> Tactical Officer, •Lando Calrissian, Pivot Wing (Open)<br /><strong>Red Squadron Veteran:</strong> Elusive, R2 Astromech, Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1384</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>84</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Trick Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Biggs Darklighter:</strong> Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, •R2-D2, Instinctive Aim, Servomotor S-foils (Open)</td>
+            <td>194</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1383</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>85</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% x x z</td>
+            <td class="pilots-column"><strong>•AP-5</strong><br /><strong>•Wedge Antilles:</strong> Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Supernatural Reflexes, Servomotor S-foils (Open)<br /><strong>Bandit Squadron Pilot</strong></td>
+            <td>197</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1379</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>86</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">c x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Shara Bey:</strong> •Saw Gerrera</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1359</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>87</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% a x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Servomotor S-foils (Open)<br /><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Fenn Rau:</strong> R4 Astromech<br /><strong>•Wedge Antilles:</strong> Predator, Servomotor S-foils (Open)</td>
+            <td>195</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1337</td>
+            <td>0.47000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>88</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B I P</td>
+            <td class="pilots-column"><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>•Soontir Fel:</strong> Predator<br /><strong>•Whisper:</strong> Juke, Stealth Device<br /><strong>•Tomax Bren:</strong> Crack Shot, Barrage Rockets</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1334</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>89</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% @ h x</td>
+            <td class="pilots-column"><strong>•AP-5</strong><br /><strong>•Wedge Antilles:</strong> Elusive, •Chopper•, Servomotor S-foils (Closed)<br /><strong>•Lowhhrick:</strong> •Magva Yarro, •Saw Gerrera<br /><strong>•Jan Ors:</strong> Engine Upgrade</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1332</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>90</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A N P</td>
+            <td class="pilots-column"><strong>•Darth Vader:</strong> Fire-Control System, Supernatural Reflexes<br /><strong>•Redline:</strong> Proton Torpedoes<br /><strong>•Whisper:</strong> Juke, •0-0-0</td>
+            <td>197</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1330</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>91</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B N `</td>
+            <td class="pilots-column"><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets<br /><strong>Gamma Squadron Ace:</strong> Saturation Salvo, Barrage Rockets<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Homing Missiles, Proton Bombs, Ablative Plating<br /><strong>•Lieutenant Kestal:</strong> Barrage Rockets</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1329</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>92</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u u x x z</td>
+            <td class="pilots-column"><strong>Bandit Squadron Pilot</strong><br /><strong>Cavern Angels Zealot:</strong> R3 Astromech, Servomotor S-foils (Open)<br /><strong>Cavern Angels Zealot:</strong> R5 Astromech, Servomotor S-foils (Open)<br /><strong>Partisan Renegade:</strong> Inertial Dampeners, Pivot Wing (Open)<br /><strong>Blue Squadron Scout:</strong> Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1322</td>
+            <td>0.36000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>93</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">K K K y z</td>
+            <td class="pilots-column"><strong>•Drea Renthal:</strong> Dorsal Turret<br /><strong>Cartel Executioner</strong><br /><strong>Cartel Executioner</strong><br /><strong>Cartel Executioner</strong><br /><strong>Binayre Pirate</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1299</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>94</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Fire-Control System, •Director Krennic, Electronic Baffle<br /><strong>•Soontir Fel:</strong> •Lone Wolf, Afterburners, Stealth Device<br /><strong>•Redline:</strong> Proton Torpedoes, Seismic Charges</td>
+            <td>194</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1270</td>
+            <td>0.29000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>95</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I I I</td>
+            <td class="pilots-column"><strong>Alpha Squadron Pilot</strong><br /><strong>•Darth Vader:</strong> Fire-Control System, Afterburners<br /><strong>•Turr Phennir:</strong> Outmaneuver<br /><strong>Alpha Squadron Pilot</strong></td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1227</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>96</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N N</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Predator, Stealth Device<br /><strong>•Redline:</strong> Proton Torpedoes, Cluster Missiles, Bomblet Generator<br /><strong>•Deathrain:</strong> Trajectory Simulator, Adv. Proton Torpedoes, Barrage Rockets, Proton Bombs, Seismic Charges, Ablative Plating, Skilled Bombardier</td>
+            <td>196</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1223</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>97</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a a h x</td>
+            <td class="pilots-column"><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Jake Farrell:</strong> Juke, Proton Rockets<br /><strong>•Kyle Katarn:</strong> •Jyn Erso, •Moldy Crow<br /><strong>•Wedge Antilles:</strong> Juke, Servomotor S-foils (Closed)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1223</td>
+            <td>0.49000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>98</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Outmaneuver, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1209</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>99</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">@ a x x</td>
+            <td class="pilots-column"><strong>•Wullffwarro:</strong> Intimidation, •Informant, •Zeb• Orrelios<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1166</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">h x x</td>
+            <td class="pilots-column"><strong>•Jan Ors:</strong> Crack Shot, •Nien Nunb, Seismic Charges, •Moldy Crow<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1162</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Director Krennic<br /><strong>•Soontir Fel:</strong> Predator<br /><strong>•Darth Vader:</strong> Fire-Control System, Supernatural Reflexes</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1149</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">i i</td>
+            <td class="pilots-column"><strong>•IG-88C:</strong> Elusive, Fire-Control System, Tractor Beam, Proximity Mines, Contraband Cybernetics, Stealth Device, IG-2000<br /><strong>•IG-88D:</strong> Elusive, Fire-Control System, Tractor Beam, Proximity Mines, Contraband Cybernetics, Stealth Device, IG-2000</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1145</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>103</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h n q q X</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> Trick Shot, •Ketsu Onyo, •Moldy Crow<br /><strong>Jakku Gunrunner</strong><br /><strong>Jakku Gunrunner</strong><br /><strong>•L3-37:</strong> Trick Shot, Tactical Officer<br /><strong>•4-LOM:</strong> Marksmanship, Advanced Sensors, •0-0-0, •Mist Hunter</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1124</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>104</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B R</td>
+            <td class="pilots-column"><strong>Gamma Squadron Ace:</strong> Barrage Rockets, Proton Bombs<br /><strong>Gamma Squadron Ace:</strong> Barrage Rockets, Proton Bombs<br /><strong>•Grand Inquisitor:</strong> Supernatural Reflexes<br /><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1106</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>105</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">H h y</td>
+            <td class="pilots-column"><strong>•Kavil:</strong> Dorsal Turret, Proton Torpedoes, R4 Astromech, Seismic Charges, •Han Solo<br /><strong>•Captain Nym:</strong> Ion Cannon Turret, Bomblet Generator, •Havoc, Trajectory Simulator, •Genius<br /><strong>•Palob Godalhi:</strong> •Lando Calrissian, Proximity Mines, •Moldy Crow</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1096</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>106</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">N P V</td>
+            <td class="pilots-column"><strong>•Major Vermeil:</strong> Crack Shot, •Darth Vader, •0-0-0<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges, Ablative Plating<br /><strong>•Whisper:</strong> Juke, Collision Detector</td>
+            <td>196</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1085</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>107</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">i i X</td>
+            <td class="pilots-column"><strong>•IG-88A:</strong> Elusive, Advanced Sensors, Contraband Cybernetics, IG-2000<br /><strong>•IG-88C:</strong> Elusive, Advanced Sensors, Contraband Cybernetics, IG-2000<br /><strong>•L3-37:</strong> Tactical Officer</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1082</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>108</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x x</td>
+            <td class="pilots-column"><strong>Red Squadron Veteran:</strong> Swarm Tactics, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Swarm Tactics, Servomotor S-foils (Open)<br /><strong>•Biggs Darklighter:</strong> Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1054</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>109</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">b x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R3 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Braylen Stramm:</strong> •Squad Leader</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1052</td>
+            <td>0.57000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>110</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y y</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Servomotor S-foils (Open)<br /><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret<br /><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1051</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>111</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f q v</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Advanced Sensors<br /><strong>•Unkar Plutt:</strong> Seismic Charges<br /><strong>•Boba Fett:</strong> Fearless, •0-0-0, Rigged Cargo Chute, •Marauder, •Han Solo</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1045</td>
+            <td>0.41000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>112</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">h x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Trick Shot, Servomotor S-foils (Open)<br /><strong>•Garven Dreis:</strong> Trick Shot, Servomotor S-foils (Open)<br /><strong>•Kyle Katarn:</strong> •Moldy Crow<br /><strong>•Wedge Antilles:</strong> Trick Shot, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1042</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>113</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">@ c x</td>
+            <td class="pilots-column"><strong>•Lowhhrick:</strong> Selfless, •Saw Gerrera, Shield Upgrade<br /><strong>•Garven Dreis:</strong> Predator, •Jyn Erso, Shield Upgrade, Veteran Tail Gunner<br /><strong>•Luke Skywalker:</strong> R4 Astromech, Shield Upgrade, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1036</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>114</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F I</td>
+            <td class="pilots-column"><strong>•Seyn Marana</strong><br /><strong>•Del Meeko</strong><br /><strong>•Gideon Hask</strong><br /><strong>•Iden Versio</strong><br /><strong>•Soontir Fel:</strong> Predator, Shield Upgrade, Stealth Device</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1033</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>115</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h n v</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> Elusive, •L3•37, Engine Upgrade, •Moldy Crow<br /><strong>•Guri:</strong> Predator, Advanced Sensors<br /><strong>•4-LOM:</strong> Elusive, Advanced Sensors, •0-0-0, •Mist Hunter, Tractor Beam</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>1018</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>116</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Darth Vader, Hull Upgrade<br /><strong>Omicron Group Pilot:</strong> •Emperor Palpatine<br /><strong>•Soontir Fel:</strong> Predator, Hull Upgrade, Shield Upgrade</td>
+            <td>200</td>
+            <td>33</td>
+            <td>3</td>
+            <td>966</td>
+            <td>0.63000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>117</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Captain Kagi:</strong> •Director Krennic, Freelance Slicer, •ST-321<br /><strong>•Maarek Stele:</strong> Marksmanship, Fire-Control System, Afterburners</td>
+            <td>199</td>
+            <td>33</td>
+            <td>3</td>
+            <td>954</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>118</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">G G x</td>
+            <td class="pilots-column"><strong>Lothal Rebel</strong><br /><strong>Lothal Rebel</strong><br /><strong>•Wedge Antilles:</strong> Elusive, •Chopper</td>
+            <td>197</td>
+            <td>33</td>
+            <td>3</td>
+            <td>908</td>
+            <td>0.60000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>119</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A D</td>
+            <td class="pilots-column"><strong>•Darth Vader:</strong> Fire-Control System, Stealth Device, Supernatural Reflexes<br /><strong>•Rexler Brath:</strong> Juke, Advanced Sensors, Heavy Laser Cannon</td>
+            <td>193</td>
+            <td>33</td>
+            <td>3</td>
+            <td>895</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>120</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B F T</td>
+            <td class="pilots-column"><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>•Duchess:</strong> Proximity Mines<br /><strong>•Del Meeko</strong><br /><strong>•Deathfire:</strong> Barrage Rockets, Proximity Mines</td>
+            <td>198</td>
+            <td>33</td>
+            <td>3</td>
+            <td>889</td>
+            <td>0.68000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>121</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">c c u</td>
+            <td class="pilots-column"><strong>•Shara Bey:</strong> Selfless, •Leia Organa, R3 Astromech, Shield Upgrade<br /><strong>•Garven Dreis:</strong> Selfless, Ion Torpedoes, R3 Astromech, Shield Upgrade<br /><strong>•Heff Tobber:</strong> Elusive, Advanced Sensors, Tactical Officer, Tactical Scrambler, Pivot Wing (Open)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1168</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>122</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Advanced Sensors, •Darth Vader, Stealth Device<br /><strong>•Soontir Fel:</strong> Predator<br /><strong>•Captain Kagi:</strong> •0-0-0</td>
+            <td>189</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1141</td>
+            <td>0.61000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B B P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1117</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>124</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u u x x z</td>
+            <td class="pilots-column"><strong>Blue Squadron Scout:</strong> Tactical Officer, Pivot Wing (Closed)<br /><strong>Bandit Squadron Pilot</strong><br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Closed)<br /><strong>•Magva Yarro:</strong> Pivot Wing (Closed)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1101</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>125</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">b x x</td>
+            <td class="pilots-column"><strong>•Braylen Stramm:</strong> •Squad Leader, Collision Detector, Proton Torpedoes<br /><strong>•Thane Kyrell:</strong> Trick Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>196</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1079</td>
+            <td>0.51000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>126</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B D</td>
+            <td class="pilots-column"><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>•Rexler Brath:</strong> Juke<br /><strong>•Captain Jonus:</strong> Barrage Rockets<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets</td>
+            <td>198</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1060</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>127</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h n s y</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> Debris Gambit, •Moldy Crow<br /><strong>•4-LOM:</strong> •IG-88D<br /><strong>•Genesis Red:</strong> Ion Cannon<br /><strong>•Kavil:</strong> Trick Shot, Dorsal Turret, Veteran Turret Gunner</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1057</td>
+            <td>0.33000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>128</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l R</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Predator, Shield Upgrade, Stealth Device<br /><strong>•Grand Inquisitor:</strong> Advanced Sensors, Sense<br /><strong>Omicron Group Pilot:</strong> •Emperor Palpatine</td>
+            <td>198</td>
+            <td>33</td>
+            <td>2</td>
+            <td>1001</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>129</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I l</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Predator, Stealth Device<br /><strong>•Darth Vader:</strong> Fire-Control System, Afterburners<br /><strong>•Captain Kagi:</strong> •0-0-0</td>
+            <td>194</td>
+            <td>33</td>
+            <td>2</td>
+            <td>992</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>130</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I I R</td>
+            <td class="pilots-column"><strong>•Turr Phennir:</strong> Shield Upgrade<br /><strong>Saber Squadron Ace</strong><br /><strong>•Seventh Sister:</strong> Fire-Control System, Heightened Perception<br /><strong>•Ved Foslo:</strong> Elusive</td>
+            <td>196</td>
+            <td>33</td>
+            <td>2</td>
+            <td>957</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>131</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x y</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> R5 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Dutch• Vander:</strong> Elusive, Ion Cannon Turret, Proton Torpedoes, Munitions Failsafe, Veteran Turret Gunner<br /><strong>•Saw Gerrera:</strong> Trick Shot, Collision Detector, •Jyn Erso, Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>954</td>
+            <td>0.42000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>132</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% b x x</td>
+            <td class="pilots-column"><strong>•AP-5:</strong> Intimidation<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>Blade Squadron Veteran:</strong> Selfless</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>940</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>133</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f q W X</td>
+            <td class="pilots-column"><strong>•Han Solo:</strong> Trick Shot, •L3•37, •Qi•ra, •Lando•s Millennium Falcon, •Dengar<br /><strong>•Boba Fett:</strong> •0-0-0<br /><strong>•Autopilot Drone</strong><br /><strong>Jakku Gunrunner:</strong> •Tobias Beckett</td>
+            <td>198</td>
+            <td>33</td>
+            <td>2</td>
+            <td>907</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>134</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B B N</td>
+            <td class="pilots-column"><strong>Gamma Squadron Ace:</strong> Saturation Salvo, Barrage Rockets<br /><strong>•Redline:</strong> Proton Torpedoes, Cluster Missiles, Shield Upgrade<br /><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets, Shield Upgrade<br /><strong>Gamma Squadron Ace:</strong> Saturation Salvo, Barrage Rockets</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>906</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>135</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l P R</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>•Grand Inquisitor:</strong> Fire-Control System, Sense<br /><strong>•Captain Kagi:</strong> •Emperor Palpatine</td>
+            <td>198</td>
+            <td>33</td>
+            <td>2</td>
+            <td>896</td>
+            <td>0.63000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>136</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f h n</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> •Squad Leader, Tactical Officer, •Moldy Crow<br /><strong>•Boba Fett:</strong> •Lone Wolf<br /><strong>•4-LOM:</strong> Advanced Sensors, •0-0-0</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>882</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>137</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Elusive, Proton Torpedoes, •Chopper•, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Predator, Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>2</td>
+            <td>876</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>138</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> •Lone Wolf<br /><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>•Captain Kagi:</strong> Advanced Sensors, •Emperor Palpatine</td>
+            <td>195</td>
+            <td>33</td>
+            <td>2</td>
+            <td>865</td>
+            <td>0.63000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>139</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B l N</td>
+            <td class="pilots-column"><strong>•Colonel Jendon</strong><br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Seismic Charges, Ablative Plating<br /><strong>•Major Rhymer:</strong> Adv. Proton Torpedoes, Cluster Missiles<br /><strong>•Captain Jonus:</strong> Cluster Missiles, Proton Bombs</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>854</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>140</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B N P P</td>
+            <td class="pilots-column"><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets<br /><strong>•Echo:</strong> Juke, Hull Upgrade<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs, Seismic Charges<br /><strong>•Whisper:</strong> Juke, •Darth Vader, Hull Upgrade<br /><strong>Scimitar Squadron Pilot:</strong> Barrage Rockets</td>
+            <td>264</td>
+            <td>33</td>
+            <td>2</td>
+            <td>838</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>141</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">F F F F x</td>
+            <td class="pilots-column"><strong>•Sabine Wren:</strong> Elusive<br /><strong>•Ezra Bridger</strong><br /><strong>•Zeb• Orrelios</strong><br /><strong>•Captain Rex</strong><br /><strong>•Luke Skywalker:</strong> Supernatural Reflexes, Servomotor S-foils (Closed)</td>
+            <td>195</td>
+            <td>33</td>
+            <td>2</td>
+            <td>838</td>
+            <td>0.43000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>142</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, •Marauder, •Han Solo<br /><strong>•Guri:</strong> •Lone Wolf, Collision Detector, Afterburners, •Virago, Stealth Device</td>
+            <td>196</td>
+            <td>33</td>
+            <td>2</td>
+            <td>827</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>143</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% a x x</td>
+            <td class="pilots-column"><strong>•AP-5</strong><br /><strong>•Jake Farrell:</strong> Crack Shot, Proton Rockets<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>2</td>
+            <td>808</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>144</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Crack Shot, R4 Astromech, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> •R2-D2, Shield Upgrade, Heightened Perception, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>798</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>145</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F I I I</td>
+            <td class="pilots-column"><strong>•Howlrunner:</strong> Juke, Shield Upgrade<br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Alpha Squadron Pilot</strong><br /><strong>Alpha Squadron Pilot</strong><br /><strong>Alpha Squadron Pilot</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>782</td>
+            <td>0.42000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>146</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> •Lone Wolf, R5 Astromech, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Closed)<br /><strong>•Luke Skywalker:</strong> •R5-D8, Heightened Perception, Servomotor S-foils (Closed)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>2</td>
+            <td>748</td>
+            <td>0.67000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>147</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I V</td>
+            <td class="pilots-column"><strong>•Major Vermeil:</strong> •0-0-0<br /><strong>•Darth Vader:</strong> Fire-Control System, Proton Rockets, Heightened Perception<br /><strong>•Soontir Fel:</strong> Marksmanship, Stealth Device</td>
+            <td>196</td>
+            <td>33</td>
+            <td>2</td>
+            <td>745</td>
+            <td>0.35000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>148</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Outmaneuver, Advanced Sensors, Afterburners<br /><strong>•Boba Fett:</strong> Debris Gambit, •0-0-0, Proton Bombs, Shield Upgrade, •Marauder, •Han Solo</td>
+            <td>187</td>
+            <td>33</td>
+            <td>2</td>
+            <td>730</td>
+            <td>0.33000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>149</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Soontir Fel:</strong> Predator, Hull Upgrade, Shield Upgrade<br /><strong>Omicron Group Pilot:</strong> •Emperor Palpatine</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>700</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>150</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% G G</td>
+            <td class="pilots-column"><strong>•AP-5:</strong> •Phantom<br /><strong>Lothal Rebel:</strong> Dorsal Turret, •Saw Gerrera, •Zeb• Orrelios<br /><strong>Lothal Rebel:</strong> Dorsal Turret, •Hera Syndulla, •Magva Yarro, •Ghost</td>
+            <td>200</td>
+            <td>33</td>
+            <td>2</td>
+            <td>569</td>
+            <td>0.55000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>151</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I P</td>
+            <td class="pilots-column"><strong>•Darth Vader:</strong> Fire-Control System, Afterburners<br /><strong>•Echo:</strong> Elusive, Perceptive Copilot<br /><strong>•Soontir Fel:</strong> Elusive</td>
+            <td>199</td>
+            <td>33</td>
+            <td>2</td>
+            <td>484</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>152</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f f</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, Proton Bombs, •Marauder, •Han Solo<br /><strong>•Krassis Trelix:</strong> Elusive, •0-0-0, Proximity Mines, •Slave I, Proton Torpedoes</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>890</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>153</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a F x y z</td>
+            <td class="pilots-column"><strong>•Dutch• Vander:</strong> Trick Shot, Ion Cannon Turret<br /><strong>•Lieutenant Blount:</strong> Predator<br /><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Captain Rex</strong><br /><strong>•Garven Dreis:</strong> Marksmanship, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>841</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>154</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f h r</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> Trick Shot, Perceptive Copilot, •Marauder, Veteran Tail Gunner<br /><strong>•Palob Godalhi:</strong> •Moldy Crow<br /><strong>•Talonbane Cobra:</strong> Predator</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>821</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>155</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A I l</td>
+            <td class="pilots-column"><strong>•Captain Kagi:</strong> Advanced Sensors, •0-0-0<br /><strong>•Darth Vader:</strong> Fire-Control System, Afterburners<br /><strong>•Soontir Fel:</strong> Predator</td>
+            <td>194</td>
+            <td>33</td>
+            <td>1</td>
+            <td>796</td>
+            <td>0.47000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>156</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F P</td>
+            <td class="pilots-column"><strong>Academy Pilot</strong><br /><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>•Howlrunner:</strong> Swarm Tactics<br /><strong>•Iden Versio:</strong> Crack Shot<br /><strong>Academy Pilot</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>778</td>
+            <td>0.21000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>157</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f h W X</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> •Moldy Crow<br /><strong>•Koshka Frost:</strong> •Marauder, •Han Solo<br /><strong>•Autopilot Drone</strong><br /><strong>•Lando Calrissian:</strong> Trick Shot, •0-0-0, •Lando•s Millennium Falcon</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>764</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>158</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D N R</td>
+            <td class="pilots-column"><strong>Inquisitor:</strong> Homing Missiles, Instinctive Aim<br /><strong>•Deathrain:</strong> Trajectory Simulator, Barrage Rockets, Proximity Mines, Seismic Charges<br /><strong>•Rexler Brath:</strong> Crack Shot, Advanced Sensors</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>742</td>
+            <td>0.67000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>159</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a b c h</td>
+            <td class="pilots-column"><strong>•Garven Dreis:</strong> Swarm Tactics, Freelance Slicer, R3 Astromech<br /><strong>•Roark Garnet:</strong> Swarm Tactics, •Lando Calrissian, •Moldy Crow<br /><strong>Blue Squadron Pilot:</strong> Fire-Control System<br /><strong>Phoenix Squadron Pilot:</strong> Proton Rockets</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>713</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>160</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">F F F F F F l</td>
+            <td class="pilots-column"><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>Academy Pilot</strong><br /><strong>•Captain Kagi:</strong> •Admiral Sloane, Shield Upgrade<br /><strong>Academy Pilot</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>712</td>
+            <td>0.60000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>161</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A D F</td>
+            <td class="pilots-column"><strong>•Rexler Brath:</strong> Juke<br /><strong>•Darth Vader:</strong> Fire-Control System, Supernatural Reflexes<br /><strong>•Night Beast</strong></td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>710</td>
+            <td>0.23000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>162</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x z</td>
+            <td class="pilots-column"><strong>•Airen Cracken:</strong> Swarm Tactics, Cluster Missiles<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Swarm Tactics, Servomotor S-foils (Open)<br /><strong>•Garven Dreis:</strong> Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>707</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>163</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Thane Kyrell:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Servomotor S-foils (Closed)</td>
+            <td>196</td>
+            <td>33</td>
+            <td>1</td>
+            <td>704</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>164</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, •R2-D2, Servomotor S-foils (Closed)<br /><strong>•Garven Dreis:</strong> Marksmanship, Proton Torpedoes, R2 Astromech, Servomotor S-foils (Closed)<br /><strong>•Dutch• Vander:</strong> Saturation Salvo, Dorsal Turret, Proton Torpedoes, R4 Astromech</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>695</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>165</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Redline:</strong> Trajectory Simulator, Proton Torpedoes, Seismic Charges<br /><strong>•Soontir Fel:</strong> Predator, Stealth Device</td>
+            <td>196</td>
+            <td>33</td>
+            <td>1</td>
+            <td>694</td>
+            <td>0.42000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>166</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% x x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Hull Upgrade, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Hull Upgrade, Servomotor S-foils (Open)<br /><strong>•AP-5:</strong> •Jyn Erso<br /><strong>•Garven Dreis:</strong> Hull Upgrade, Servomotor S-foils (Open)</td>
+            <td>197</td>
+            <td>33</td>
+            <td>1</td>
+            <td>687</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>167</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A N P</td>
+            <td class="pilots-column"><strong>•Darth Vader:</strong> Fire-Control System, Supernatural Reflexes<br /><strong>•Redline:</strong> Proton Torpedoes<br /><strong>•Whisper:</strong> Juke</td>
+            <td>194</td>
+            <td>33</td>
+            <td>1</td>
+            <td>681</td>
+            <td>0.65000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>168</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I N P</td>
+            <td class="pilots-column"><strong>•Redline:</strong> Advanced Sensors, Proton Torpedoes<br /><strong>•Whisper:</strong> Juke, Advanced Sensors, •Agent Kallus, Stealth Device<br /><strong>•Soontir Fel:</strong> Marksmanship, Stealth Device</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>666</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>169</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">N P V</td>
+            <td class="pilots-column"><strong>•Major Vermeil:</strong> •Director Krennic, •Darth Vader, Electronic Baffle<br /><strong>•Redline:</strong> Trajectory Simulator, Barrage Rockets, Proton Bombs, Seismic Charges, Skilled Bombardier<br /><strong>•Whisper:</strong> Juke, Collision Detector, Stealth Device</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>663</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>170</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h s v X z</td>
+            <td class="pilots-column"><strong>Binayre Pirate:</strong> Homing Missiles<br /><strong>•Torkil Mux</strong><br /><strong>•L3-37:</strong> Tactical Officer<br /><strong>Black Sun Assassin:</strong> Outmaneuver, •Virago<br /><strong>•Serissu:</strong> Swarm Tactics, Tractor Beam</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>658</td>
+            <td>0.31000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>171</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, R2 Astromech, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Trick Shot, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Trick Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>194</td>
+            <td>33</td>
+            <td>1</td>
+            <td>657</td>
+            <td>0.58000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>172</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> •Lone Wolf, Stealth Device<br /><strong>•Lieutenant Sai:</strong> •Emperor Palpatine<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>644</td>
+            <td>0.25000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>173</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D l P</td>
+            <td class="pilots-column"><strong>•Captain Kagi</strong><br /><strong>•Rexler Brath:</strong> Juke<br /><strong>•Whisper:</strong> Juke, •Agent Kallus</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>639</td>
+            <td>0.29000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>174</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">h n v</td>
+            <td class="pilots-column"><strong>•Palob Godalhi:</strong> Debris Gambit, •L3•37, Stealth Device, •Moldy Crow<br /><strong>•Guri:</strong> Outmaneuver, Advanced Sensors<br /><strong>•4-LOM:</strong> Advanced Sensors, •0-0-0, •Mist Hunter</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>638</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>175</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">c x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Norra Wexley:</strong> Proton Torpedoes, R3 Astromech, Hull Upgrade, Veteran Tail Gunner</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>630</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>176</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% a x x z z</td>
+            <td class="pilots-column"><strong>•AP-5</strong><br /><strong>•Arvel Crynyd:</strong> Intimidation, Homing Missiles<br /><strong>Bandit Squadron Pilot</strong><br /><strong>Bandit Squadron Pilot</strong><br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>626</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>177</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">b b b b</td>
+            <td class="pilots-column"><strong>Blade Squadron Veteran:</strong> Fire-Control System, Tractor Beam<br /><strong>Blade Squadron Veteran:</strong> Fire-Control System, Tractor Beam<br /><strong>Blade Squadron Veteran:</strong> Fire-Control System, Tractor Beam<br /><strong>Blade Squadron Veteran:</strong> Fire-Control System, Tractor Beam</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>622</td>
+            <td>0.40000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>178</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">A l P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Collision Detector<br /><strong>•Captain Kagi:</strong> Freelance Slicer, •ST-321<br /><strong>•Darth Vader:</strong> Fire-Control System, Afterburners</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>608</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>179</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Swarm Tactics, Proton Torpedoes, Hull Upgrade, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Open)<br /><strong>Partisan Renegade:</strong> Advanced Sensors, Tactical Officer, Feedback Array, Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>608</td>
+            <td>0.39000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>180</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D F P</td>
+            <td class="pilots-column"><strong>•Whisper:</strong> Juke, Fire-Control System, •Director Krennic<br /><strong>•Rexler Brath:</strong> Juke, Advanced Sensors, Ion Cannon<br /><strong>•Seyn Marana:</strong> Marksmanship</td>
+            <td>196</td>
+            <td>33</td>
+            <td>1</td>
+            <td>605</td>
+            <td>0.41000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>181</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f s v</td>
+            <td class="pilots-column"><strong>•Sunny Bounder</strong><br /><strong>•Boba Fett:</strong> •0-0-0, Proximity Mines, •Marauder, Veteran Tail Gunner<br /><strong>•Guri:</strong> Outmaneuver, Fire-Control System</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>598</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>182</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% a x x</td>
+            <td class="pilots-column"><strong>•Fenn Rau:</strong> Shield Upgrade<br /><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Wedge Antilles:</strong> Swarm Tactics, Servomotor S-foils (Closed)<br /><strong>•Thane Kyrell:</strong> Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>561</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>183</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">F o</td>
+            <td class="pilots-column"><strong>•Sabine Wren:</strong> Elusive, Stealth Device<br /><strong>•Dash Rendar:</strong> Trick Shot, •Lando Calrissian, Contraband Cybernetics, Shield Upgrade, •Outrider, •Luke Skywalker</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>559</td>
+            <td>0.53000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>184</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a a a a x</td>
+            <td class="pilots-column"><strong>Phoenix Squadron Pilot</strong><br /><strong>Green Squadron Pilot:</strong> Crack Shot<br /><strong>•Arvel Crynyd:</strong> Intimidation<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Afterburners, Servomotor S-foils (Closed)<br /><strong>Phoenix Squadron Pilot</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>554</td>
+            <td>0.29000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>185</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">k k x</td>
+            <td class="pilots-column"><strong>Warden Squadron Pilot:</strong> •Cassian Andor, Proton Bombs, Seismic Charges<br /><strong>•Miranda Doni:</strong> •Sabine Wren, Proton Bombs, Proximity Mines<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R2 Astromech, Shield Upgrade, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>552</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>186</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">P P T</td>
+            <td class="pilots-column"><strong>•Pure Sabacc:</strong> •Lone Wolf, •BT-1<br /><strong>•Whisper:</strong> Juke, Advanced Sensors, •Darth Vader<br /><strong>•Echo:</strong> Juke, Advanced Sensors, Perceptive Copilot</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>536</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>187</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a b x</td>
+            <td class="pilots-column"><strong>•Ten Numb:</strong> Debris Gambit, Advanced Sensors, Afterburners<br /><strong>•Jake Farrell:</strong> Predator, Proton Rockets<br /><strong>•Luke Skywalker:</strong> •R2-D2, Supernatural Reflexes, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>526</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>188</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Outmaneuver, Proton Torpedoes, R4 Astromech, Shield Upgrade, Servomotor S-foils (Closed)<br /><strong>•Edrio Two Tubes:</strong> Proton Torpedoes, R4 Astromech, Deadman•s Switch, Servomotor S-foils (Closed)<br /><strong>•Benthic Two Tubes:</strong> Advanced Sensors, Perceptive Copilot, Deadman•s Switch, Pivot Wing (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>523</td>
+            <td>0.31000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>189</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">G x x</td>
+            <td class="pilots-column"><strong>•Chopper:</strong> •Magva Yarro, •Zeb• Orrelios, Tactical Scrambler<br /><strong>•Wedge Antilles:</strong> Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>•Thane Kyrell:</strong> Proton Torpedoes, Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>518</td>
+            <td>0.35000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>190</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">c h x</td>
+            <td class="pilots-column"><strong>•Jan Ors:</strong> •Squad Leader, Tactical Officer, Hull Upgrade, Shield Upgrade, •Moldy Crow<br /><strong>•Thane Kyrell:</strong> Trick Shot, R4 Astromech, Servomotor S-foils (Open)<br /><strong>•Norra Wexley:</strong> Elusive, Perceptive Copilot, R5 Astromech, Veteran Tail Gunner</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>515</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>191</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">u x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Proton Torpedoes, R3 Astromech, Servomotor S-foils (Closed)<br /><strong>•Benthic Two Tubes:</strong> Perceptive Copilot, •Jyn Erso, Pivot Wing (Closed)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R3 Astromech, Heightened Perception, Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>506</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>192</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">L M q</td>
+            <td class="pilots-column"><strong>•Fenn Rau:</strong> Fearless<br /><strong>•Ketsu Onyo:</strong> Intimidation, •Zuckuss, Rigged Cargo Chute, •Shadow Caster<br /><strong>•Constable Zuvio:</strong> Crack Shot, Proton Bombs</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>495</td>
+            <td>0.45000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>193</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l P</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Juke<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader<br /><strong>•Lieutenant Sai:</strong> Fire-Control System, •Minister Tua, •0-0-0, •ST-321</td>
+            <td>197</td>
+            <td>33</td>
+            <td>1</td>
+            <td>474</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>194</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">r r r r r</td>
+            <td class="pilots-column"><strong>Cartel Marauder</strong><br /><strong>Cartel Marauder</strong><br /><strong>Cartel Marauder</strong><br /><strong>Cartel Marauder</strong><br /><strong>Cartel Marauder</strong></td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>464</td>
+            <td>0.41000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>195</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">l P R</td>
+            <td class="pilots-column"><strong>Omicron Group Pilot:</strong> •Emperor Palpatine<br /><strong>•Grand Inquisitor:</strong> Fire-Control System<br /><strong>•Whisper:</strong> Juke, Collision Detector, •Darth Vader</td>
+            <td>192</td>
+            <td>33</td>
+            <td>1</td>
+            <td>453</td>
+            <td>0.39000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>196</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v X</td>
+            <td class="pilots-column"><strong>•L3-37:</strong> Tactical Officer<br /><strong>•Boba Fett:</strong> Debris Gambit, Perceptive Copilot, •Marauder, •Han Solo<br /><strong>•Guri:</strong> Elusive, Advanced Sensors</td>
+            <td>196</td>
+            <td>33</td>
+            <td>1</td>
+            <td>441</td>
+            <td>0.60000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>197</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">p v y</td>
+            <td class="pilots-column"><strong>•Kavil:</strong> Expert Handling, Dorsal Turret, Inertial Dampeners<br /><strong>•Dengar:</strong> Crack Shot, •Punishing One, R3 Astromech<br /><strong>•Guri:</strong> Daredevil, •Virago</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>435</td>
+            <td>0.47000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>198</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">h o</td>
+            <td class="pilots-column"><strong>•Dash Rendar:</strong> Trick Shot, •Jyn Erso, Hull Upgrade, •Outrider, •Bistan<br /><strong>•Kyle Katarn:</strong> Trick Shot, Perceptive Copilot, Engine Upgrade, •Moldy Crow</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>430</td>
+            <td>0.47000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>199</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">a e x</td>
+            <td class="pilots-column"><strong>•Kullbee Sperado:</strong> Crack Shot, Proton Torpedoes, R4 Astromech, Contraband Cybernetics, Servomotor S-foils (Closed)<br /><strong>•Jake Farrell:</strong> Outmaneuver, Proton Rockets<br /><strong>Rogue Squadron Escort:</strong> Proton Torpedoes, R4 Astromech, Hull Upgrade</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>422</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>200</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D F P</td>
+            <td class="pilots-column"><strong>•Rexler Brath:</strong> Juke, Fire-Control System, Homing Missiles<br /><strong>•Whisper:</strong> Juke, •Darth Vader<br /><strong>•Del Meeko:</strong> Elusive</td>
+            <td>197</td>
+            <td>33</td>
+            <td>1</td>
+            <td>418</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>201</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">K M W</td>
+            <td class="pilots-column"><strong>•Fenn Rau:</strong> Fearless<br /><strong>•Han Solo:</strong> Trick Shot, •0-0-0, Rigged Cargo Chute, •Lando•s Millennium Falcon<br /><strong>•Torani Kulda:</strong> Marksmanship, Proton Torpedoes</td>
+            <td>199</td>
+            <td>33</td>
+            <td>1</td>
+            <td>417</td>
+            <td>0.47000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>202</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f v X</td>
+            <td class="pilots-column"><strong>•Guri:</strong> Outmaneuver, Advanced Sensors<br /><strong>•L3-37:</strong> Tactical Officer<br /><strong>•Boba Fett:</strong> Debris Gambit, •Qi•ra, Proton Bombs, •Marauder, •Han Solo</td>
+            <td>196</td>
+            <td>33</td>
+            <td>1</td>
+            <td>409</td>
+            <td>0.50000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>203</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">v v v</td>
+            <td class="pilots-column"><strong>Black Sun Assassin:</strong> Outmaneuver, Stealth Device<br /><strong>Black Sun Assassin:</strong> Outmaneuver, Stealth Device<br /><strong>•Guri:</strong> Outmaneuver, Stealth Device</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>405</td>
+            <td>0.48000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>204</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">m x</td>
+            <td class="pilots-column"><strong>•Han Solo:</strong> Trick Shot, Seasoned Navigator, •Chewbacca, Ablative Plating, •Millennium Falcon, Hotshot Gunner<br /><strong>•Luke Skywalker:</strong> •R5-D8, Shield Upgrade, Heightened Perception, Servomotor S-foils (Closed)</td>
+            <td>198</td>
+            <td>33</td>
+            <td>1</td>
+            <td>375</td>
+            <td>0.33000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>205</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">M M r s</td>
+            <td class="pilots-column"><strong>•Sunny Bounder:</strong> Tractor Beam<br /><strong>Skull Squadron Pilot:</strong> Outmaneuver<br /><strong>Skull Squadron Pilot:</strong> Outmaneuver<br /><strong>•Talonbane Cobra:</strong> Predator, Deadman•s Switch</td>
+            <td>200</td>
+            <td>33</td>
+            <td>1</td>
+            <td>244</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>206</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">H K r</td>
+            <td class="pilots-column"><strong>•Torani Kulda:</strong> Marksmanship, Proton Torpedoes, Cluster Missiles, R3 Astromech, Hull Upgrade<br /><strong>•Captain Jostero:</strong> Contraband Cybernetics, Shield Upgrade<br /><strong>•Captain Nym:</strong> Trick Shot, Ion Cannon Turret, Bomblet Generator, Shield Upgrade, •Havoc, Trajectory Simulator, •Genius</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>505</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>207</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, R5 Astromech, Servomotor S-foils (Closed)<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, R5 Astromech, Servomotor S-foils (Closed)<br /><strong>•Dutch• Vander:</strong> Ion Cannon Turret, Proton Torpedoes</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>462</td>
+            <td>0.39000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>208</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B B F N</td>
+            <td class="pilots-column"><strong>•Howlrunner:</strong> Juke<br /><strong>•Captain Jonus:</strong> Barrage Rockets, Proton Bombs<br /><strong>•Major Rhymer:</strong> Proton Torpedoes, Proton Bombs<br /><strong>•Deathrain:</strong> Trajectory Simulator, Proton Torpedoes, Proton Bombs</td>
+            <td>198</td>
+            <td>33</td>
+            <td>0</td>
+            <td>458</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>209</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">B D N</td>
+            <td class="pilots-column"><strong>•Captain Jonus:</strong> Saturation Salvo, Barrage Rockets<br /><strong>•Colonel Vessery:</strong> Marksmanship<br /><strong>•Redline:</strong> Proton Torpedoes, Cluster Missiles, Ablative Plating</td>
+            <td>199</td>
+            <td>33</td>
+            <td>0</td>
+            <td>417</td>
+            <td>0.44000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>210</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x x</td>
+            <td class="pilots-column"><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, R3 Astromech, Heightened Perception, Servomotor S-foils (Open)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)<br /><strong>Blue Squadron Escort:</strong> Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>396</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>211</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">% e x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Crack Shot, Adv. Proton Torpedoes, R2 Astromech, Servomotor S-foils (Closed)<br /><strong>•Corran Horn:</strong> Outmaneuver, Fire-Control System, Adv. Proton Torpedoes, R2 Astromech, Stealth Device<br /><strong>•AP-5:</strong> R4 Astromech</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>394</td>
+            <td>0.39000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>212</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y</td>
+            <td class="pilots-column"><strong>•Luke Skywalker:</strong> Proton Torpedoes, •R2-D2, Instinctive Aim, Servomotor S-foils (Open)<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Proton Torpedoes, R2 Astromech, Servomotor S-foils (Closed)<br /><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret, Veteran Turret Gunner</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>321</td>
+            <td>0.38000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>213</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">D F P</td>
+            <td class="pilots-column"><strong>•Mauler• Mithel</strong><br /><strong>•Rexler Brath:</strong> Juke, Advanced Sensors<br /><strong>•Whisper:</strong> Juke, •Darth Vader</td>
+            <td>198</td>
+            <td>33</td>
+            <td>0</td>
+            <td>311</td>
+            <td>0.33000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>214</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x x</td>
+            <td class="pilots-column"><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Proton Torpedoes, Heightened Perception, Servomotor S-foils (Open)<br /><strong>•Thane Kyrell:</strong> Crack Shot, Proton Torpedoes, R3 Astromech, Servomotor S-foils (Open)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>288</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>215</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y y</td>
+            <td class="pilots-column"><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret<br /><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret<br /><strong>•Wedge Antilles:</strong> Outmaneuver, Servomotor S-foils (Open)<br /><strong>•Luke Skywalker:</strong> Heightened Perception, Servomotor S-foils (Open)</td>
+            <td>199</td>
+            <td>33</td>
+            <td>0</td>
+            <td>272</td>
+            <td>0.56000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>216</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">!</td>
+            <td class="ships-column">x x y y</td>
+            <td class="pilots-column"><strong>Gray Squadron Bomber:</strong> Ion Cannon Turret<br /><strong>•Dutch• Vander:</strong> Ion Cannon Turret<br /><strong>•Wedge Antilles:</strong> Crack Shot, Proton Torpedoes, Servomotor S-foils (Closed)<br /><strong>Red Squadron Veteran:</strong> Proton Torpedoes, Servomotor S-foils (Closed)</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>262</td>
+            <td>0.54000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>217</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">I l N V</td>
+            <td class="pilots-column"><strong>•Soontir Fel:</strong> Ruthless<br /><strong>•Major Vermeil:</strong> Ruthless<br /><strong>Omicron Group Pilot</strong><br /><strong>•Redline:</strong> Proton Torpedoes</td>
+            <td>199</td>
+            <td>33</td>
+            <td>0</td>
+            <td>231</td>
+            <td>0.33000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>218</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">#</td>
+            <td class="ships-column">f f</td>
+            <td class="pilots-column"><strong>•Boba Fett:</strong> •Lone Wolf, Perceptive Copilot, Proximity Mines, •Marauder, •Han Solo<br /><strong>•Emon Azzameen:</strong> Elusive, •0-0-0, Proximity Mines</td>
+            <td>195</td>
+            <td>33</td>
+            <td>0</td>
+            <td>212</td>
+            <td>0.46000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+        <tr>
+            <td>219</td>
+            <td class="player-column">[NAME REDACTED]</td>
+            <td class="faction-column">@</td>
+            <td class="ships-column">R R R V</td>
+            <td class="pilots-column"><strong>Inquisitor:</strong> Fire-Control System, Cluster Missiles, Instinctive Aim<br /><strong>•Vizier:</strong> •Agent Kallus, ISB Slicer<br /><strong>Inquisitor:</strong> Fire-Control System, Cluster Missiles<br /><strong>Inquisitor:</strong> Fire-Control System, Cluster Missiles</td>
+            <td>200</td>
+            <td>33</td>
+            <td>0</td>
+            <td>181</td>
+            <td>0.52000</td>
+            <td></td>
+            <td>[List Redacted]</td>
+        </tr>
+    </table>
+</body>
+</html>
