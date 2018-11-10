@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("ranking-table");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc"; 
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++; 
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+    <style type="text/css">
+        @font-face {
+            font-family: xwing_ships_font;
+            /*src: url("css/fonts/Harabara.eot");*/
+            src: local(xwing_ships_font), url("css/fonts/xwing-miniatures-ships_2-webfont.woff") format("woff"), url("css/fonts/xwing-miniatures-ships_2-webfont.woff2") format("woff2"), url("css/fonts/xwing-miniatures-ships_2-webfont.ttf") format("ttf");
+        }
+        @font-face {
+            font-family: xwing_symbols_font;
+            src: local(xwing_ships_font), url("css/fonts/xwing-miniatures-webfont.woff") format("woff"), url("css/fonts/xwing-miniatures-webfont.woff2") format("woff2"), url("css/fonts/xwing-miniatures-webfont.ttf") format("ttf");
+        }
+        .faction-column {
+            font-family: xwing_symbols_font, Arial, sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 30px;
+        }
+        .ships-column {
+            font-family: xwing_ships_font, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: normal;
+            font-style: normal;
+            text-align: left;
+        }
+        .player-column{
+            text-align: left;
+        }
+        .pilots-column{
+            text-align: left;
+        } 
+        body {
+            background-color: #3e94ec;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            border-radius: 3px;
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+        }
+
+        th {
+            color: #D5DDE5;
+            background: #1b1e24;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 14px;
+            font-weight: 100;
+            padding: 5px;
+            text-align: left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align: middle;
+        }
+
+            th:first-child {
+                border-top-left-radius: 3px;
+            }
+
+            th:last-child {
+                border-top-right-radius: 3px;
+                border-right: none;
+            }
+
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom: 1px solid #C1C3D1;
+            color: #666B85;
+            font-size: 14px;
+            font-weight: normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+            
+        }
+
+            tr:hover td {
+                background: #4E5066;
+                color: #FFFFFF;
+                border-top: 1px solid #22262e;
+            }
+
+            tr:first-child {
+                border-top: none;
+            }
+
+            tr:last-child {
+                border-bottom: none;
+            }
+
+            tr:nth-child(odd) td {
+                background: #EBEBEB;
+            }
+
+            tr:nth-child(odd):hover td {
+                background: #4E5066;
+            }
+
+            tr:last-child td:first-child {
+                border-bottom-left-radius: 3px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+        td {
+            background: #FFFFFF;
+            padding: 5px;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 100;
+            font-size: 14px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+
+            td:last-child {
+                border-right: 0px;
+            }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nordic Herder with a Vengeance</h1>
+    <h3>Faction Distribution</h3>
+    <table>
+        <tr>
+            <th>Faction</th>
+            <th>Total field</th>
+            <th>Top 16</th>
+            <th>Top 8</th>
+            <th>Semi-Final</th>
+            <th>Final</th>
+        </tr>
+        <tr>
+            <td class="faction-column">!</td>
+            <td>29.5%</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="faction-column">@</td>
+            <td>28.8%</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="faction-column">#</td>
+            <td>41.7%</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h3> Most Common Pilots</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total Field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Successful 50%+</th>
+            <th>Least Successful 50%-</th>
+            <th>Most Successful W/L+</th>
+            <th>Least Successful W/L-</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Palob Godalhi</td>
+            <td>Wedge Antilles</td>
+            <td>Redline</td>
+            <td>Palob Godalhi</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Jakku Gunrunner</td>
+            <td>Luke Skywalker</td>
+            <td>Whisper</td>
+            <td>Jakku Gunrunner</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Boba Fett</td>
+            <td>AP-5</td>
+            <td>Soontir Fel</td>
+            <td>Boba Fett</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>4-LOM</td>
+            <td>Bandit Squadron Pilot</td>
+            <td>Rexler Brath</td>
+            <td>4-LOM</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Wedge Antilles</td>
+            <td>Garven Dreis</td>
+            <td>Gamma Squadron Ace</td>
+            <td>Binayre Pirate</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h3> Most Common Upgrades</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total Field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Successful 50%+</th>
+            <th>Least Successful 50%-</th>
+            <th>Most Successful W/L+</th>
+            <th>Least Successful W/L-</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Proton Torpedoes</td>
+            <td>S-Foils</td>
+            <td>Juke</td>
+            <td>0-0-0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Trick Shot</td>
+            <td>Proton Torpedoes</td>
+            <td>Proton Torpedoes</td>
+            <td>Moldy Crow</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>S-Foils</td>
+            <td>Trick Shot</td>
+            <td>Proton Bombs</td>
+            <td>Trick Shot</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Moldy Crow</td>
+            <td>R4 Astromech</td>
+            <td>Darth Vader</td>
+            <td>Fearless</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Advanced Sensors</td>
+            <td>Shield Upgrade</td>
+            <td>Trajectory Simulator</td>
+            <td>Han Solo</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h3>Most Common Ships</h3>
+    <table>
+        <tr>
+            <th>POS</th>
+            <th>Total field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+            <th>Most Successful 50%+</th>
+            <th>Least Successful 50%-</th>
+            <th>Most Successful W/L+</th>
+            <th>Least Successful W/L-</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>T-65 X-wing</td>
+            <td>T-65 X-wing</td>
+            <td>TIE/ca Punisher</td>
+            <td>HWK-290 Light Freighter</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>HWK-290 Light Freighter</td>
+            <td>Z-95-AF4 Headhunter</td>
+            <td>TIE/ln Fighter</td>
+            <td>Quadrijet Transfer Spacetug</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Quadrijet Transfer Spacetug</td>
+            <td>Sheathipede-class Shuttle</td>
+            <td>TIE/ph Phantom</td>
+            <td>Fang Fighter</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h3>Most common list archetypes</h3>
+    <span class="ships-column" style="font-size:200%">x x x</span><span> - 5 lists with the same caracteristics</span><br />
+    <span class="ships-column" style="font-size:200%">f h n</span><span> - 4 lists with the same caracteristics</span><br />
+    <span class="ships-column" style="font-size:200%">f v</span><span> - 3 lists with the same caracteristics</span><br />
+    <h3>Averages</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>Total field</th>
+            <th class="faction-column">!</th>
+            <th class="faction-column">@</th>
+            <th class="faction-column">#</th>
+        </tr>
+        <tr>
+            <td># of upgrades per ship</td>
+            <td>2.20</td>
+            <td>1.91</td>
+            <td>2.20</td>
+            <td>2.47</td>
+        </tr>
+        <tr>
+            <td># of ships in list</td>
+            <td>3.5</td>
+            <td>3.4</td>
+            <td>5.2</td>
+            <td>2.4</td>
+        </tr>
+        <tr>
+            <td>avg initiative bid</td>
+            <td>2.5</td>
+            <td>2.1</td>
+            <td>2.8</td>
+            <td>2.5</td>
+        </tr>        
+    </table>
+    <h3>Final Ranking</h3>
+    <span>Click column headers to sort</span>
+    <table id="ranking-table" cellspacing=0 border=1>
+        <tr>
+            <th onclick="sortTable(0)">Swiss Rank</th>
+            <th onclick="sortTable(1)">Player Name</th>
+            <th onclick="sortTable(2)">Faction</th>
+            <th onclick="sortTable(3)">Archetype</th>
+            <th onclick="sortTable(4)">Squad</th>
+            <th onclick="sortTable(5)">Squad Points</th>
+            <th onclick="sortTable(6)">Final Rank</th>
+            <th onclick="sortTable(7)">Points</th>
+            <th onclick="sortTable(8)">MOV</th>
+            <th onclick="sortTable(9)">SOS</th>
+            <th onclick="sortTable(10)">Dropped</th>
+            <th onclick="sortTable(11)">List</th>
+        </tr>
+        
+    </table>
+</body>
+</html>
