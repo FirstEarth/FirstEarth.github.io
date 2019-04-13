@@ -1,0 +1,641 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Tutorial</title>
+    <style>
+        p{
+            margin:3px;
+        }
+        td {
+            text-align: center;
+            font-family: 'Eurostile LT Std';
+        }
+
+        .CardTitle {
+            font-family: 'BankGothic Md BT';
+            font-size: 2.0em;
+        }
+
+        .CardTrait {
+            font-weight: bold;
+        }
+
+        .CardText {
+            
+        }
+
+        .Symbols {
+            font-family: x-wing-symbols;
+        }
+
+        .Action {
+            font-weight: bold;
+        }
+
+        .Deutsch{
+        }
+        .Español{
+        }
+        .Français{
+        }
+        .Polska{
+        }
+
+    </style>
+    <script type="text/javascript">
+        function toggleColumn(n) {
+            var elements = document.querySelectorAll('.' + n);
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = "None";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <table border="1" cellpadding="15" >
+        <tr>
+            <td id="Oldie" class="CardTitle" colspan=8>
+                SECOND EDITION DAMAGE DECK
+            </td>
+        </tr>
+            <tr>
+                <td class="CardTitle">Glyph</td>
+                <td class="CardTitle">English</td>
+                <td onclick="toggleColumn(this.innerHTML)" class="CardTitle Italiano">Italiano</td>
+                <td onclick="toggleColumn(this.innerHTML)" class="CardTitle Español">Español</td>
+                <td onclick="toggleColumn(this.innerHTML)" class="CardTitle Deutsch">Deutsch</td>
+                <td onclick="toggleColumn(this.innerHTML)" class="CardTitle Français">Français</td>
+                <td onclick="toggleColumn(this.innerHTML)" class="CardTitle Polska">Polska</td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="01.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Panicked Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Gain 2 stress tokens.</p>
+                    <p>Then repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Panicked Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Gain 2 stress tokens.</p>
+                    <p>Then repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Piloto presa del pánico</p>
+                    <p class="CardTrait">Piloto</p>
+                    <p>Recibes 2 fichas de Tensión.</p>
+                    <p>Luego repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Panischer Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Erhalte 2 Stressmarker.</p>
+                    <p>Dann repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Pilot Paniqué</p>
+                    <p class="CardTrait">Pilote</p>
+                    <p>Gagnez 2 marqueurs de stress.</p>
+                    <p>Puis réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Spanikowany Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Otrzymujesz 2 żetony stresu.</p>
+                    <p>Następnie napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="02.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Blinded Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>While you perform an attack, you can modify your dice only by spending <span class="Symbols">h</span> for their default effect.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Blinded Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>While you perform an attack, you can modify your dice only by spending <span class="Symbols">h</span> for their default effect.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Piloto cegado</p>
+                    <p class="CardTrait">Piloto</p>
+                    <p>Mientra efectúas un ataque, solo puedes modificar tus dados mediante el gasto de <span class="Symbols">h</span> con su efecto normal.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Geblendeter Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Solange du einen Angriff durchführst, kannst du deine Würfel nur modifizieren, indem du <span class="Symbols">h</span> für ihren Standarteffekt ausgibst.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Pilote Aveuglé</p>
+                    <p class="CardTrait">Pilote</p>
+                    <p>Tant que vous effectuez une attaque, vous pouvez modifier vos dés uniquement en dépensant <span class="Symbols">h</span> pour son effet par défaut.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Oślepiony Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Gdy wykonujesz atak, możesz modyfikować swoje kości wyłącznie za pomocą podstawowego efektu związanego z wydaniem <span class="Symbols">h</span>.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="03.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Wounded Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>After you perform an action, roll 1 attack die.</p>
+                    <p>On a <span class="Symbols">d</span> or <span class="Symbols">c</span> result, gain 1 stress token.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Wounded Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>After you perform an action, roll 1 attack die.</p>
+                    <p>On a <span class="Symbols">d</span> or <span class="Symbols">c</span> result, gain 1 stress token.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Piloto herido</p>
+                    <p class="CardTrait">Piloto</p>
+                    <p>Después de que realices una acción, tira 1 dado de ataque.</p>
+                    <p>Si sacas <span class="Symbols">d</span> o <span class="Symbols">c</span>, recibes 1 ficha de Tensión.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Verletzter Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Nachdem du eine Aktion durchgeführt hast, wirf 1 Angriffswürfel.</p>
+                    <p>Bei einem <span class="Symbols">d</span>- oder <span class="Symbols">c</span>- Ergebnis, erhalte 1 Stressmarker.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Pilote Blessé</p>
+                    <p class="CardTrait">Pilote</p>
+                    <p>Après avoir effectué une action, lancez 1 dé d'attaque.</p>
+                    <p>Sur un résultat <span class="Symbols">d</span> ou <span class="Symbols">c</span>, gagnez 1 marqueur de stress.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Ranny Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Gdy wykonasz akcję, rzuć 1 kością.</p>
+                    <p>Jeżeli wypadnie <span class="Symbols">d</span> albo <span class="Symbols">c</span>, otrzymujesz 1 żeton stresu.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="04.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Stunned Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>After you execute a maneuver, if you moved through or overlapped an obstacle, suffer 1 <span class="Symbols">d</span> damage.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Stunned Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>After you execute a maneuver, if you moved through or overlapped an obstacle, suffer 1 <span class="Symbols">d</span> damage.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Piloto aturdido</p>
+                    <p class="CardTrait">Piloto</p>
+                    <p>Después de que ejecutes una maniobra, si has pasado a través o te has solapado con algún obstáculo, sufres 1 de daño <span class="Symbols">d</span>.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Benommener Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Nachdem du ein Manöver ausgeführt hast, falls du dich durch ein Hindernis hindurchbewegt oder mit einem Hindernis überschnitten hast, erleide 1 <span class="Symbols">d</span>- Schaden.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Pilote Assommé</p>
+                    <p class="CardTrait">Pilote</p>
+                    <p>Après avoir exécuté une manœuvre, si vous vous êtes déplacé à travers ou si vous avez chevauché un obstacle, subissez 1 dégât <span class="Symbols">d</span>.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Ogłuszony Pilot</p>
+                    <p class="CardTrait">Pilot</p>
+                    <p>Gdy wykpnasz manewr, jeśli ruszyłeś się przez przeszkodę lub nachodzisz na przeszkodę przyjmujesz 1 uszkodzenie <span class="Symbols">d</span>.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="05.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Console Fire</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you engage, roll 1 attack die.</p>
+                    <p>On a <span class="Symbols">d</span> result, suffer 1 <span class="Symbols">d</span> damage.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Console Fire</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you engage, roll 1 attack die.</p>
+                    <p>On a <span class="Symbols">d</span> result, suffer 1 <span class="Symbols">d</span> damage.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Fuego en el panel de mandos</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Antes de que intervengas, tira 1 dado de ataque.</p>
+                    <p>Si sacas <span class="Symbols">d</span>, sufres 1 de daño <span class="Symbols">d</span>.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Konsolenbrand</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Bevor du kämpfst, wirf 1 Angriffswürfel.</p>
+                    <p>Bei einem <span class="Symbols">d</span>- Ergebnis erleide 1 <span class="Symbols">d</span>- Schaden.</p>
+                    <p><span class="Action">Aktion:</span> Repariere dieses Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Pupitre en Feu</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Avant de Vous engager, lancez 1 dé d'attaque.</p>
+                    <p>Sur un résultat <span class="Symbols">d</span>, subissez 1 dégât <span class="Symbols">d</span>.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Pożar w kokpicie</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Zanim rozpoczniesz walkę, rzuć 1 kością ataku.</p>
+                    <p>Jeżeli wypadnie <span class="Symbols">d</span>, przyjmujesz 1 <span class="Symbols">d</span> uszkodzenie.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="06.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Damaged Engine</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Increase the difficulty of your turn maneuvers (<span class="Symbols">4</span> and <span class="Symbols">6</span>).</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Damaged Engine</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Increase the difficulty of your turn maneuvers (<span class="Symbols">4</span> and <span class="Symbols">6</span>).</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Motor dañado</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Incrementa la dificultad de tus maniobras de giro (<span class="Symbols">4</span> and <span class="Symbols">6</span>).</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Triebwerks-schaden</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Erhöhe die Schwierigkeit deiner Wendemanöver (<span class="Symbols">4</span> und <span class="Symbols">6</span>).</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Moteur Endommagé</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Augmentez la difficulté de vos manœuvres de virages (<span class="Symbols">4</span> et <span class="Symbols">6</span>).</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Uszkodzenie silnika</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Zwiększ trudność twoich manewrów zwrotu (<span class="Symbols">4</span> i <span class="Symbols">6</span>).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="07.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Weapons Failure</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>While you perform an attack, roll 1 fewer attack die.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Weapons Failure</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>While you perform an attack, roll 1 fewer attack die.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Armamento averiado</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Mientras efectúas un ataque, tira 1 dado de ataque menos.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Defekte Waffen</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Solange du einen Angriff durchführst, wirf 1 Angriffswürfel weniger.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Armes en Panne</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Tant que vous effectuez une attaque, lancez 1 dé d'attaque en moins.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Awaria uzbrojenia</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Gdy Wykonujesz atak, rzucasz 1 kością mniej.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="08.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Hull Breach</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you would suffer 1 or more <span class="Symbols">d</span> damage, suffer that much <span class="Symbols">c</span> damage instead.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Hull Breach</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you would suffer 1 or more <span class="Symbols">d</span> damage, suffer that much <span class="Symbols">c</span> damage instead.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Brecha en el casco</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Antes de que vayas a sufrir 1 o más de daño <span class="Symbols">d</span>, envez de eso sufres esa misma cantidad de daño <span class="Symbols">c</span>.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Hüllenbruch</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Bevor du 1 oder mehr <span class="Symbols">d</span>. Schaden erleiden würdest, erleide stattdessen ebenso viel <span class="Symbols">c</span>- Schaden.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Coque Éventrée</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Avant que vous ne subissiez 1 ou plusieurs dégâts <span class="Symbols">d</span>, subissez autant de dégâts <span class="Symbols">c</span> à la place.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Przebicie kadłuba</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Gdy masz przyjąć 1 albo więcej uszkodzeń <span class="Symbols">d</span>, zamiast tego przyjmujesz taką samą liczbę uszkodzeń <span class="Symbols">c</span>.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="09.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Structural Damage</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>While you defend, roll 1 fewer defense die.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Structural Damage</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>While you defend, roll 1 fewer defense die.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Daños estructurales</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Mientras te defiendes, tira 1 dado de defensa menos.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Struktur-schäden</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Solange du verteidigst, wirf 1 Verteidigungswürfel weniger.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Dommages Structurels</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Tant que vous dëfendez, lancez 1 dé de défense en moins.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Uszkodzenia strukturalne</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Gdy się bronisz, rzucasz 1 kością obrony mniej.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="10.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Damaged Sensor Array</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>You cannot perform any actions except the <span class="Symbols">f</span> action and actions from damage cards.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Damaged Sensor Array</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>You cannot perform any actions except the <span class="Symbols">f</span> action and actions from damage cards.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Sensores dañados</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>No puedes realizar ninguna acción excepto la acción <span class="Symbols">f</span> y acciones que figuren en cartas de Daño.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Sensoren-Ausfall</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Du kannst keine Aktionen durchführen außer der <span class="Symbols">f</span>- Aktion und den Aktionen von Schadenskarten.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Console de Senseurs Endommagée</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Vous ne pouvez effectuer aucune action excepté l'action <span class="Symbols">f</span> et les actions des cartes de dégât.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Uszkodzenine czujników</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Nie możesz wykonywać żadnych akcji, za wyjątkiem akcji <span class="Symbols">f</span> oraz akcji z kart uszkodzeń.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="11.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Loose Stabilizer</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>After you execute a non-straight maneuver (<span class="Symbols">8</span>), suffer 1 <span class="Symbols">d</span> damage and repair this card.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Loose Stabilizer</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>After you execute a non-straight maneuver (<span class="Symbols">8</span>), suffer 1 <span class="Symbols">d</span> damage and repair this card.</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Estabilizador desajustado</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Después de que ejecutes una maniobra que no sea de movimiento recto (<span class="Symbols">8</span>), sufres 1 de daño <span class="Symbols">d</span> y reparas esta carta.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Gelöster Stabilisator</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Nachdem du ein Nicht-Gerade-Monöver (<span class="Symbols">8</span>) ausgeführt hast, erleide 1 <span class="Symbols">d</span>- Schaden und repariere diese Karte.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Stabilisateur Desserré</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Après avoir exécuté une manœuvre autre qu'en ligne droite (<span class="Symbols">8</span>), subissez 1 dégât <span class="Symbols">d</span> et réparez cette carte.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Obluzowany stabilizator</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Gdy wykonasz manewr inny niż na wprost (<span class="Symbols">8</span>), przyjmujesz 1 uszkodzenie <span class="Symbols">d</span> i naprawiasz tę kartę.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="12.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Disabled Power Regulator</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you engage, gain 1 ion token.</p>
+                    <p>After you execute an ion maneuver, repair this card</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Disabled Power Regulator</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Before you engage, gain 1 ion token.</p>
+                    <p>After you execute an ion maneuver, repair this card</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Regulador de potencia averiado</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Antes de que intervengas, recibes 1 ficha de Iones.</p>
+                    <p>Después de que ejecutes una maniobra por ionización, repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Energieregulator-ausfall</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Bevor du kämpfst, Nachdem du ein Ionenmarker.</p>
+                    <p>Nachdem du ein Ionenmanöver ausgeführt hast, repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Régulateur de Puissance Neutralisé</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Avant de vous engager, gagnez 1 marqueur ionique.</p>
+                    <p>Après avoir exécuté une manœuvre ionique, réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Nieaktywny regulator zasilania</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Zanim rozpoczniesz walkę, otrzymujesz 1 żeton jonowy.</p>
+                    <p>Gdy wykonasz manewr jonowy, napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="13.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Fuel Leak</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>After you suffer 1 <span class="Symbols">c</span> damage, suffer 1 <span class="Symbols">d</span> damage and repair this card</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Italiano">
+                    <p class="CardTitle">Fuel Leak</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>After you suffer 1 <span class="Symbols">c</span> damage, suffer 1 <span class="Symbols">d</span> damage and repair this card</p>
+                    <p><span class="Action">Action:</span> Repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">Fuga de combustible</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>Después de que sufras 1 de daño <span class="Symbols">c</span>, sufres 1 de daño <span class="Symbols">d</span> y reparas esta carta.</p>
+                    <p><span class="Action">Acción:</span> Repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Treibstoffleck</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Nachdem du 1 <span class="Symbols">c</span>- Schaden erlitten hast, erleide 1 <span class="Symbols">d</span>- Schaden und repariere diese Karte.</p>
+                    <p><span class="Action">Aktion:</span> Repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Fuite de Carburant</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Après avoir subi 1 dégât <span class="Symbols">c</span>, subissez 1 dégât <span class="Symbols">d</span> et réparez cette carte.</p>
+                    <p><span class="Action">Action:</span> réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Wyciek paliwa</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Gdy przyjmiesz 1 uszkodzenie <span class="Symbols">c</span>, przyjmujesz 1 uszkodzenie <span class="Symbols">d</span> i naprawiasz tę kartę.</p>
+                    <p><span class="Action">Akcja:</span> Napraw tę kartę.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="14.jpg">
+                </td>
+                <td>
+                    <p class="CardTitle">Direct Hit!</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Suffer 1 <span class="Symbols">d</span> damage.</p>
+                    <p>Then repair this card.</p>
+                </td>
+                <td class=" Italiano">
+                    <p class="CardTitle">Direct Hit!</p>
+                    <p class="CardTrait">Ship</p>
+                    <p>Suffer 1 <span class="Symbols">d</span> damage.</p>
+                    <p>Then repair this card.</p>
+                </td>
+                <td class="Español">
+                    <p class="CardTitle">¡Impacto directo!</p>
+                    <p class="CardTrait">Nave</p>
+                    <p>sufres 1 de daño <span class="Symbols">d</span> damage.</p>
+                    <p>Luego repara esta carta.</p>
+                </td>
+                <td class="Deutsch">
+                    <p class="CardTitle">Volltreffer!</p>
+                    <p class="CardTrait">Schiff</p>
+                    <p>Erleide 1 <span class="Symbols">d</span>- Schaden.</p>
+                    <p>Dann repariere diese Karte.</p>
+                </td>
+                <td class="Français">
+                    <p class="CardTitle">Coup au But!</p>
+                    <p class="CardTrait">Vaisseau</p>
+                    <p>Subissez 1 dégât <span class="Symbols">d</span>.</p>
+                    <p>Puis réparez cette carte.</p>
+                </td>
+                <td class="Polska">
+                    <p class="CardTitle">Bezpośrednie trafienie!</p>
+                    <p class="CardTrait">Statek</p>
+                    <p>Przyjmujesz 1 uszkodzenie <span class="Symbols">d</span>.</p>
+                    <p>Następnie napraw tę kartę.</p>
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
